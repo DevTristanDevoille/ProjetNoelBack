@@ -88,6 +88,7 @@ builder.Services.AddEndpointsApiExplorer();
 #region IOC
 
 builder.Services.AddScoped<IUserServices,UserServices>();
+builder.Services.AddScoped<ISquadServices, SquadServices>();
 builder.Services.AddScoped<IJwtService,JwtService>();
 
 

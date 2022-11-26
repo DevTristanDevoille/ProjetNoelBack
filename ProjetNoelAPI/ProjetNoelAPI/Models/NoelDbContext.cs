@@ -7,6 +7,7 @@ namespace ProjetNoelAPI.Models
         public DbSet<User>? Users { get; set; }
         public DbSet<Liste>? Listes { get; set; }
         public DbSet<Idea>? Ideas { get; set; }
+        public DbSet<Squad>? Squades { get; set; }
 
         public NoelDbContext(DbContextOptions<NoelDbContext> options):base(options)
         {
