@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ProjetNoelAPI.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjetNoelAPI.Contracts.Services;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
 
@@ -11,11 +10,11 @@ namespace ProjetNoelAPI.Controllers
     public class UserController : ControllerBase
     {
         #region privates
-        private readonly IUserServices _userServices;
+        private readonly IUserService _userServices;
         #endregion
 
         #region CTOR
-        public UserController(IUserServices userServices)
+        public UserController(IUserService userServices)
         {
             _userServices = userServices;
         }

@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjetNoelAPI.Models;
+using ProjetNoelAPI.DataAccess.DbContextNoel;
 
 #nullable disable
 
-namespace ProjetNoelAPI.Migrations
+namespace ProjetNoelAPI.DataAccess.Migrations
 {
     [DbContext(typeof(NoelDbContext))]
-    [Migration("20221126220001_MySecondMigration")]
-    partial class MySecondMigration
+    partial class NoelDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,6 +79,9 @@ namespace ProjetNoelAPI.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("IdCreator")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

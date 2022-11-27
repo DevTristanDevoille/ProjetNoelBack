@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProjetNoelAPI.Models
+namespace ProjetNoelAPI.DataAccess.DbContextNoel
 {
     public class NoelDbContextDesign : IDesignTimeDbContextFactory<NoelDbContext>
     {

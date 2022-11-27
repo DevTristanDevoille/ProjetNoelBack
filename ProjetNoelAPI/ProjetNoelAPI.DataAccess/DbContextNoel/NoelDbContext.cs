@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjetNoelAPI.Models;
 
-namespace ProjetNoelAPI.Models
+namespace ProjetNoelAPI.DataAccess.DbContextNoel
 {
     public class NoelDbContext : DbContext
     {
@@ -9,7 +10,7 @@ namespace ProjetNoelAPI.Models
         public DbSet<Idea>? Ideas { get; set; }
         public DbSet<Squad>? Squades { get; set; }
 
-        public NoelDbContext(DbContextOptions<NoelDbContext> options):base(options)
+        public NoelDbContext(DbContextOptions<NoelDbContext> options) : base(options)
         {
 
         }

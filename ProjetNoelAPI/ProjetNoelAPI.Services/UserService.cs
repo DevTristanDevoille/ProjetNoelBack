@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using ProjetNoelAPI.Interfaces;
+using ProjetNoelAPI.Contracts.Services;
+using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,22 +12,24 @@ using System.Text;
 
 namespace ProjetNoelAPI.Services
 {
-    public class UserServices : IUserServices
+    public class UserService : IUserService
     {
-        private readonly NoelDbContext _noelDbContext;
         private readonly ApiSettings _apiSettings;
         private readonly IJwtService _jwtService;
+        private readonly IUnitOfWork _uow;
 
-        public UserServices(IOptions<ApiSettings> apiSettings,NoelDbContext noelDbContext,IJwtService jwtService)
+        public UserService(IOptions<ApiSettings> apiSettings,IJwtService jwtService,IUnitOfWork uow)
         {
-            _noelDbContext = noelDbContext;
             _apiSettings = apiSettings.Value;
             _jwtService = jwtService;
+            _uow = uow;
         }
 
         public async Task<UserDtoDownToken?> Login(string username, string password)
         {
-            User? user = _noelDbContext?.Users?.SingleOrDefault(a => a.UserName == username);
+
+            //User? user = _noelDbContext?.Users?.SingleOrDefault(a => a.UserName == username);
+            User user = new();
 
             if (user == null)
                 return null;
@@ -58,8 +61,9 @@ namespace ProjetNoelAPI.Services
                 Salt = Convert.ToBase64String(salt)
             };
 
-            _noelDbContext?.Users?.Add(user);
-            _noelDbContext?.SaveChanges();
+
+            _uow.UserRepository.Add(user);
+            _uow.Commit();
 
             return user;
         }

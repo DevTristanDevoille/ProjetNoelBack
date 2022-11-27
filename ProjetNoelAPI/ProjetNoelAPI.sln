@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetNoelAPI", "ProjetNoelAPI\ProjetNoelAPI.csproj", "{2B85DC2D-3333-497F-A4EA-B9506575936C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjetNoelAPI", "ProjetNoelAPI\ProjetNoelAPI.csproj", "{2B85DC2D-3333-497F-A4EA-B9506575936C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetNoelAPI.Services", "ProjetNoelAPI.Services\ProjetNoelAPI.Services.csproj", "{B43E62EF-FA87-4568-A697-1B8B9E560DD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetNoelAPI.Contracts", "ProjetNoelAPI.Contracts\ProjetNoelAPI.Contracts.csproj", "{2D0D3DE1-B05E-43BE-AF5E-ECD9C1D8FC14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetNoelAPI.Models", "ProjetNoelAPI.Models\ProjetNoelAPI.Models.csproj", "{C5D8ECBA-976F-4C3A-BA3B-100C127991B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetNoelAPI.DataAccess", "ProjetNoelAPI.DataAccess\ProjetNoelAPI.DataAccess.csproj", "{37631638-DF29-4E6A-9905-E58B8C77EA8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{2B85DC2D-3333-497F-A4EA-B9506575936C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B85DC2D-3333-497F-A4EA-B9506575936C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B85DC2D-3333-497F-A4EA-B9506575936C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B43E62EF-FA87-4568-A697-1B8B9E560DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B43E62EF-FA87-4568-A697-1B8B9E560DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B43E62EF-FA87-4568-A697-1B8B9E560DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B43E62EF-FA87-4568-A697-1B8B9E560DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0D3DE1-B05E-43BE-AF5E-ECD9C1D8FC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0D3DE1-B05E-43BE-AF5E-ECD9C1D8FC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0D3DE1-B05E-43BE-AF5E-ECD9C1D8FC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0D3DE1-B05E-43BE-AF5E-ECD9C1D8FC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D8ECBA-976F-4C3A-BA3B-100C127991B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D8ECBA-976F-4C3A-BA3B-100C127991B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D8ECBA-976F-4C3A-BA3B-100C127991B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D8ECBA-976F-4C3A-BA3B-100C127991B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37631638-DF29-4E6A-9905-E58B8C77EA8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37631638-DF29-4E6A-9905-E58B8C77EA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37631638-DF29-4E6A-9905-E58B8C77EA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37631638-DF29-4E6A-9905-E58B8C77EA8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,9 @@
 ﻿using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
 
-namespace ProjetNoelAPI.Interfaces
+namespace ProjetNoelAPI.Contracts.Services
 {
-    public interface IUserServices
+    public interface IUserService
     {
         public Task<User> CreateUser(UserDtoDown userDtoDown);
         Task<UserDtoDownToken?> Login(string username, string password);

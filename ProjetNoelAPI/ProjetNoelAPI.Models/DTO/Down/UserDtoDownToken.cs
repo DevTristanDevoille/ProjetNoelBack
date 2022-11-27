@@ -6,7 +6,7 @@
 
         public string? Token { get; set; }
 
-        public UserDtoDownToken(User user,string token)
+        public UserDtoDownToken(User user, string token)
         {
             User = user;
             Token = token;

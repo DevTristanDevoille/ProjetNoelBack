@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ProjetNoelAPI.Interfaces;
+using ProjetNoelAPI.Contracts.Services;
+using ProjetNoelAPI.DataAccess.DbContextNoel;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Services;
 using System.Text;
@@ -87,8 +88,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 #region IOC
 
-builder.Services.AddScoped<IUserServices,UserServices>();
-builder.Services.AddScoped<ISquadServices, SquadServices>();
+builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<ISquadService, SquadService>();
 builder.Services.AddScoped<IJwtService,JwtService>();
 
 

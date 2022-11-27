@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using ProjetNoelAPI.Interfaces;
+using ProjetNoelAPI.Contracts.Services;
+using ProjetNoelAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ProjetNoelAPI.Models
+namespace ProjetNoelAPI.Services
 {
     public class JwtService : IJwtService
     {

@@ -1,18 +1,18 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using ProjetNoelAPI.Interfaces;
+using ProjetNoelAPI.Contracts.Services;
+using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 
 namespace ProjetNoelAPI.Services
 {
-    public class SquadServices : ISquadServices
+    public class SquadService : ISquadService
     {
-        private readonly NoelDbContext? _context;
+        private readonly IUnitOfWork _uow;
 
-        public SquadServices(NoelDbContext context)
+        public SquadService(IUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         public async Task<string>? CreateSquad(string token)
@@ -23,7 +23,8 @@ namespace ProjetNoelAPI.Services
             JwtSecurityToken tokenS = jsonToken as JwtSecurityToken;
             string id = tokenS.Claims.First(claim => claim.Type == "id").Value;
 
-            User user = _context.Users.FirstOrDefault(u => u.Id.ToString() == id);
+            //User user = _context.Users.FirstOrDefault(u => u.Id.ToString() == id);
+            User user = new();
             if (user == null)
                 return "";
 
@@ -40,8 +41,8 @@ namespace ProjetNoelAPI.Services
 
             Squad squad = new Squad() { Users = new List<User>() { user},Code = resultString };
 
-            _context.Squades.Add(squad);
-            _context.SaveChanges();
+            _uow.SquadRepository.Add(squad);
+            _uow.Commit();
 
             return resultString;
         }
@@ -54,21 +55,21 @@ namespace ProjetNoelAPI.Services
             JwtSecurityToken tokenS = jsonToken as JwtSecurityToken;
             string id = tokenS.Claims.First(claim => claim.Type == "id").Value;
 
-            User user = _context.Users.FirstOrDefault(u => u.Id.ToString() == id);
+            //User user = _context.Users.FirstOrDefault(u => u.Id.ToString() == id);
 
-            if (user == null)
-                return false;
+            //if (user == null)
+            //    return false;
 
-            List<User> userInSquad = _context?.Squades?.Where(s => s.Code == code).SelectMany(s => s.Users).ToList();
+            //List<User> userInSquad = _context?.Squades?.Where(s => s.Code == code).SelectMany(s => s.Users).ToList();
 
-            Squad? squad = _context?.Squades?.FirstOrDefault(s => s.Code == code);
+            //Squad? squad = _context?.Squades?.FirstOrDefault(s => s.Code == code);
 
-            if (userInSquad == null || userInSquad.Contains(user))
-                return false;
+            //if (userInSquad == null || userInSquad.Contains(user))
+            //    return false;
 
-            squad.Users = new List<User> { user };
-            _context?.Squades?.Update(squad);
-            _context?.SaveChanges();
+            //squad.Users = new List<User> { user };
+            //_context?.Squades?.Update(squad);
+            _uow.Commit();
 
             return true;
         }

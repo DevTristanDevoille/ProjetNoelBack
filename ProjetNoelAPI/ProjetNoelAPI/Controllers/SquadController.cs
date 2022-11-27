@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjetNoelAPI.Interfaces;
+using ProjetNoelAPI.Contracts.Services;
 
 namespace ProjetNoelAPI.Controllers
 {
@@ -9,11 +9,11 @@ namespace ProjetNoelAPI.Controllers
     public class SquadController : ControllerBase
     {
         #region privates
-        private readonly ISquadServices _squadServices;
+        private readonly ISquadService _squadServices;
         #endregion
 
         #region CTOR
-        public SquadController(ISquadServices squadServices)
+        public SquadController(ISquadService squadServices)
         {
             _squadServices = squadServices;
         }

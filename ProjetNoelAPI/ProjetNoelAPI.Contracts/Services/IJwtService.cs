@@ -1,7 +1,7 @@
 ﻿using ProjetNoelAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace ProjetNoelAPI.Interfaces
+namespace ProjetNoelAPI.Contracts.Services
 {
     public interface IJwtService
     {
