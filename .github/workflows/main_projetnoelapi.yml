@@ -29,6 +29,7 @@ jobs:
       - name: Restore dependencies
         run: |
               cd $SOLUTION
+              dir
               dotnet restore
       - name: Build
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
