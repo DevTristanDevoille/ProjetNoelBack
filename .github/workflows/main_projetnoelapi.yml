@@ -24,8 +24,8 @@ jobs:
 
       - name: Build with dotnet
         run: |
+            cd ProjetNoelAPI/ProjetNoelAPI
             dir
-            cd ProjetNoelBack/ProjetNoelAPI/ProjetNoelAPI
             dotnet build --configuration Release
 
       - name: dotnet publish
