@@ -24,7 +24,8 @@ namespace ProjetNoelAPI.Controllers
         #region methods
 
         #region Login
-        [HttpGet]
+        [HttpPost]
+        [Route("/Connexion")]
         public async Task<IActionResult> Login([FromBody] UserDtoUp userDtoUp)
         {
             // If the login or the password is null we return an error
