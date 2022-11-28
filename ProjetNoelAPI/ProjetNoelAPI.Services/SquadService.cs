@@ -2,6 +2,7 @@
 using ProjetNoelAPI.Contracts.Services;
 using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.Models;
+using ProjetNoelAPI.Services.Commons;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace ProjetNoelAPI.Services
@@ -18,13 +19,10 @@ namespace ProjetNoelAPI.Services
         public async Task<string>? CreateSquad(string token)
         {
 
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            SecurityToken jsonToken = handler.ReadToken(token);
-            JwtSecurityToken tokenS = jsonToken as JwtSecurityToken;
-            string id = tokenS.Claims.First(claim => claim.Type == "id").Value;
+            string id = GetParamToken.GetClaimInToken(token, "id");
 
-            //User user = _context.Users.FirstOrDefault(u => u.Id.ToString() == id);
-            User user = new();
+            User user = _uow.UserRepository.Get(int.Parse(id));
+
             if (user == null)
                 return "";
 
@@ -50,25 +48,22 @@ namespace ProjetNoelAPI.Services
         public async Task<bool> FindSquad(string? code,string? token)
         {
 
-            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            SecurityToken jsonToken = handler.ReadToken(token);
-            JwtSecurityToken tokenS = jsonToken as JwtSecurityToken;
-            string id = tokenS.Claims.First(claim => claim.Type == "id").Value;
+            string id = GetParamToken.GetClaimInToken(token, "id");
 
-            //User user = _context.Users.FirstOrDefault(u => u.Id.ToString() == id);
+            User user = _uow.UserRepository.Get(int.Parse(id));
 
-            //if (user == null)
-            //    return false;
+            if (user == null)
+                return false;
 
-            //List<User> userInSquad = _context?.Squades?.Where(s => s.Code == code).SelectMany(s => s.Users).ToList();
+            List<User> userInSquad = _uow.UserRepository.GetUserInSquad(code);
+            
+            Squad squad = _uow.SquadRepository.Get(RequestExpression<Squad>.CreateRequetWithOneParam("Code", code));
 
-            //Squad? squad = _context?.Squades?.FirstOrDefault(s => s.Code == code);
+            if (squad == null || userInSquad.Contains(user))
+                return false;
 
-            //if (userInSquad == null || userInSquad.Contains(user))
-            //    return false;
-
-            //squad.Users = new List<User> { user };
-            //_context?.Squades?.Update(squad);
+            squad.Users = new List<User> { user };
+            _uow.SquadRepository.Update(squad);
             _uow.Commit();
 
             return true;

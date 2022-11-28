@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjetNoelAPI.Contracts.Services;
+using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.DataAccess.DbContextNoel;
+using ProjetNoelAPI.DataAccess.UnitOfWork;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Services;
 using System.Text;
@@ -88,9 +90,12 @@ builder.Services.AddEndpointsApiExplorer();
 
 #region IOC
 
-builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<ISquadService, SquadService>();
-builder.Services.AddScoped<IJwtService,JwtService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IUserService,UserService>();
+builder.Services.AddTransient<ISquadService, SquadService>();
+builder.Services.AddTransient<IListeService, ListeService>();
+builder.Services.AddTransient<IIdeaService, IdeaService>();
+builder.Services.AddTransient<IJwtService,JwtService>();
 
 
 #endregion

@@ -5,7 +5,9 @@ using ProjetNoelAPI.Contracts.Services;
 using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
+using ProjetNoelAPI.Services.Commons;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -27,9 +29,8 @@ namespace ProjetNoelAPI.Services
 
         public async Task<UserDtoDownToken?> Login(string username, string password)
         {
-
-            //User? user = _noelDbContext?.Users?.SingleOrDefault(a => a.UserName == username);
-            User user = new();
+            Expression<Func<User, bool>> requete = RequestExpression<User>.CreateRequetWithOneParam("UserName", username);
+            User? user = await _uow.UserRepository.GetAsync(requete);
 
             if (user == null)
                 return null;

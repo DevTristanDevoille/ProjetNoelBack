@@ -8,7 +8,17 @@ namespace ProjetNoelAPI.DataAccess.Repositories
     {
         public UserRepository(NoelDbContext dbContext) : base(dbContext)
         {
+            
+        }
 
+        public List<User> GetUserInSquad(string code)
+        {
+            return _dbContext?.Squades?.Where(s => s.Code == code).SelectMany(s => s.Users).ToList();
+        }
+
+        public List<Liste> GetListesForUser(int id)
+        {
+            return _dbContext.Users.Where(u => u.Id == id).SelectMany(u => u.Listes).ToList();
         }
     }
 }

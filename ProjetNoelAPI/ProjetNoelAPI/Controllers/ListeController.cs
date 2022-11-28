@@ -48,10 +48,10 @@ namespace ProjetNoelAPI.Controllers
         }
         #endregion
 
-        #region GetListe
+        #region DeleteListe
         [HttpDelete]
         [Authorize]
-        public async Task<IActionResult> DeleteListe([FromQuery] int? idListe)
+        public async Task<IActionResult> DeleteListe([FromQuery] int idListe)
         {
             string? token = Request.Headers["Authorization"];
             token = token.Replace("Bearer ", "");

@@ -2,6 +2,7 @@
 using ProjetNoelAPI.Contracts.Services;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
+using ProjetNoelAPI.Models.DTO.Up;
 
 namespace ProjetNoelAPI.Controllers
 {
@@ -24,14 +25,14 @@ namespace ProjetNoelAPI.Controllers
 
         #region Login
         [HttpGet]
-        public async Task<IActionResult> Login([FromQuery] string login, [FromQuery] string password)
+        public async Task<IActionResult> Login([FromBody] UserDtoUp userDtoUp)
         {
             // If the login or the password is null we return an error
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(userDtoUp.UserName) || string.IsNullOrEmpty(userDtoUp.Password))
                 return BadRequest();
 
             // Get the administrator in the database
-            UserDtoDownToken? user = await _userServices.Login(login, password);
+            UserDtoDownToken? user = await _userServices.Login(userDtoUp.UserName, userDtoUp.Password);
 
             // If the admin are found we return all infos else we return not found
             return user == null ? NotFound() : Ok(

@@ -1,4 +1,5 @@
-﻿using ProjetNoelAPI.Contracts.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetNoelAPI.Contracts.Repositories;
 using ProjetNoelAPI.DataAccess.DbContextNoel;
 using ProjetNoelAPI.Models;
 
@@ -10,5 +11,7 @@ namespace ProjetNoelAPI.DataAccess.Repositories
         {
 
         }
+
+
     }
 }

@@ -8,6 +8,7 @@ namespace ProjetNoelAPI.Contracts.UnitOfWork
         IListeRepository ListeRepository { get; }
         ISquadRepository SquadRepository { get; }
         IUserRepository UserRepository { get; }
+        IIdeaRepository IdeaRepository { get; }
         void Commit();
         void Rollback();
         Task CommitAsync();

@@ -43,7 +43,12 @@ namespace ProjetNoelAPI.DataAccess
 
 
 
-        public T Get(Expression<Func<T, bool>> expression)
+        public T Get(int id)
+        {
+            return _entitiySet.FirstOrDefault(e => e.Id == id);
+        }
+
+        public T Get(Expression<Func<T,bool>> expression)
         {
             return _entitiySet.FirstOrDefault(expression);
         }
@@ -73,7 +78,12 @@ namespace ProjetNoelAPI.DataAccess
         }
 
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+        public async Task<T> GetAsync(int id, CancellationToken cancellationToken = default)
+        {
+            return await _entitiySet.FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<T> GetAsync(Expression<Func<T,bool>> expression, CancellationToken cancellationToken = default)
         {
             return await _entitiySet.FirstOrDefaultAsync(expression);
         }

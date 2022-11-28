@@ -5,6 +5,7 @@ namespace ProjetNoelAPI.Contracts
 {
     public interface IGenericRepository<T> where T : BaseModel
     {
+        T Get(int id);
         T Get(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(Expression<Func<T, bool>> expression);
@@ -14,6 +15,7 @@ namespace ProjetNoelAPI.Contracts
         void RemoveRange(IEnumerable<T> entities);
         void Update(T entity);
         void UpdateRange(IEnumerable<T> entities);
+        Task<T> GetAsync(int id, CancellationToken cancellationToken = default);
         Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
         Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
