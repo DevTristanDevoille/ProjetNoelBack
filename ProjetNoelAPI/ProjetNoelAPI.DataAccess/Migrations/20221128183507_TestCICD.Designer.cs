@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetNoelAPI.DataAccess.DbContextNoel;
 
@@ -11,9 +12,10 @@ using ProjetNoelAPI.DataAccess.DbContextNoel;
 namespace ProjetNoelAPI.DataAccess.Migrations
 {
     [DbContext(typeof(NoelDbContext))]
-    partial class NoelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221128183507_TestCICD")]
+    partial class TestCICD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
