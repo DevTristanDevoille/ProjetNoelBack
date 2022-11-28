@@ -12,10 +12,6 @@ on:
 jobs:
   build:
   
-    env:
-      BUILD_CONFIG: 'Release'
-      SOLUTION: 'ProjetNoelAPI'
-  
     runs-on: windows-latest
 
     steps:
@@ -28,11 +24,11 @@ jobs:
 
       - name: Restore dependencies
         run: |
-              cd $SOLUTION
+              cd ProjetNoelAPI/ProjetNoelAPI/
               dir
               dotnet restore
       - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+        run: dotnet build ProjetNoelAPI/ProjetNoelAPI/ --configuration Release --no-restore
 
       - name: dotnet publish
         run: |
