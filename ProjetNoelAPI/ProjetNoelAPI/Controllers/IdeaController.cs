@@ -35,9 +35,9 @@ namespace ProjetNoelAPI.Controllers
         #region CreateIdeas
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateIdeas([FromBody] List<Idea> ideas, [FromQuery] int idListe)
+        public async Task<IActionResult> CreateIdeas([FromBody] List<Idea> ideas)
         {
-            List<Idea> resultIdeas = await _ideaService.CreateIdea(ideas, idListe);
+            List<Idea> resultIdeas = await _ideaService.CreateIdea(ideas);
             return resultIdeas == null ? NotFound() : Ok(resultIdeas);
         }
         #endregion
@@ -45,9 +45,9 @@ namespace ProjetNoelAPI.Controllers
         #region UpdateIdeas
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpdateIdeas([FromBody] List<Idea> ideas, [FromQuery] int idListe)
+        public async Task<IActionResult> UpdateIdeas([FromBody] List<Idea> ideas)
         {
-            List<Idea> resultIdeas = await _ideaService.UpdateIdea(ideas, idListe);
+            List<Idea> resultIdeas = await _ideaService.UpdateIdea(ideas);
             return resultIdeas == null ? NotFound() : Ok(resultIdeas);
         }
         #endregion

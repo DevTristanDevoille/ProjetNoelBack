@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using ProjetNoelAPI.Contracts.Services;
 using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
 using ProjetNoelAPI.Services.Commons;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
-using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace ProjetNoelAPI.Services
 {
     public class UserService : IUserService
     {
-        private readonly ApiSettings _apiSettings;
+        private readonly ApiSettings? _apiSettings;
         private readonly IJwtService _jwtService;
         private readonly IUnitOfWork _uow;
 
@@ -67,29 +63,6 @@ namespace ProjetNoelAPI.Services
             _uow.Commit();
 
             return user;
-        }
-
-        private string generateJwtToken(User user)
-        {
-            // génère un token valide pour 7 jours
-            JwtSecurityTokenHandler? tokenHandler = new JwtSecurityTokenHandler();
-            byte[]? key = Encoding.ASCII.GetBytes(_apiSettings.JwtSecret);
-            SecurityTokenDescriptor? tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("id", user.Id.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email,user.Email),
-                    // Cela va garantir que le token est unique
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                }),
-                Issuer = _apiSettings.JwtIssuer,
-                Audience = _apiSettings.JwtAudience,
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            SecurityToken? token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
         }
 
         private byte[] GenerateSalt()

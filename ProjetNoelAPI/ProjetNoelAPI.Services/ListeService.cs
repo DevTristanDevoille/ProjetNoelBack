@@ -21,11 +21,11 @@ namespace ProjetNoelAPI.Services
 
             User user = await _uow.UserRepository.GetAsync(int.Parse(id));
 
-            liste?.Users?.Add(user);
             liste.IdCreator = user.Id;
+            liste?.Users?.Add(user);
 
             _uow.ListeRepository.Add(liste);
-            _uow.Commit();
+            await _uow.CommitAsync();
 
             return liste;
 
@@ -44,13 +44,13 @@ namespace ProjetNoelAPI.Services
             else
                 return false;
 
-            _uow.Commit();
+            await _uow.CommitAsync();
             return true;
 
 
         }
 
-        public async Task<List<Liste>> GetListe(string? token)
+        public List<Liste> GetListe(string? token)
         {
             string id = GetParamToken.GetClaimInToken(token, "id");
             List<Liste> listes = _uow.UserRepository.GetListesForUser(int.Parse(id));
@@ -60,11 +60,8 @@ namespace ProjetNoelAPI.Services
 
         public async Task<bool> UpdateListe(Liste liste, string? token)
         {
-            string id = GetParamToken.GetClaimInToken(token, "id");
-
             _uow.ListeRepository.Update(liste);
-            _uow.Commit();
-
+            await _uow.CommitAsync();
             return true;
         }
     }

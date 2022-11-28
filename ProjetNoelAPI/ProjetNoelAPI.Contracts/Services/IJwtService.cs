@@ -9,6 +9,6 @@ namespace ProjetNoelAPI.Contracts.Services
 
         List<User> GenerateJwtTokenForUser(List<User> users);
 
-        Task<JwtSecurityToken?> ReadJwtToken(string token);
+        JwtSecurityToken? ReadJwtToken(string token);
     }
 }

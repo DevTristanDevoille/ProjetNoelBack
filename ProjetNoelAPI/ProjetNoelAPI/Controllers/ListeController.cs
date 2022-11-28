@@ -42,7 +42,7 @@ namespace ProjetNoelAPI.Controllers
         {
             string? token = Request.Headers["Authorization"];
             token = token.Replace("Bearer ", "");
-            List<Liste> result = await _listeService.GetListe(token);
+            List<Liste> result = _listeService.GetListe(token);
 
             return Ok(result);
         }

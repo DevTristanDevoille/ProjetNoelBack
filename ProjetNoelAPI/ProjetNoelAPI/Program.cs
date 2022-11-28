@@ -118,7 +118,7 @@ if (connexion == "")
     builder.Services.AddDbContext<NoelDbContext>(options => options.UseSqlServer(connexion));
 }
 
-var context = builder.Services.BuildServiceProvider().GetRequiredService<NoelDbContext>();
+NoelDbContext context = builder.Services.BuildServiceProvider().GetRequiredService<NoelDbContext>();
 
 #endregion
 #endregion

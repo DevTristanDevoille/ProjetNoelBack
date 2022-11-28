@@ -65,7 +65,7 @@ namespace ProjetNoelAPI.Services
             return users;
         }
 
-        public async Task<JwtSecurityToken?> ReadJwtToken(string token)
+        public JwtSecurityToken? ReadJwtToken(string token)
         {
             try
             {

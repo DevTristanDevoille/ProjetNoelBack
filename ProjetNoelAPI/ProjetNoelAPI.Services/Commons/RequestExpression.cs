@@ -10,7 +10,7 @@ namespace ProjetNoelAPI.Services.Commons
             ParameterExpression parameter = Expression.Parameter(type, "param");
             MemberExpression fieldSearch = Expression.PropertyOrField(parameter, field);
             Expression<Func<T, bool>> requete;
-            if (field == "id")
+            if (field.Contains("id"))
             {
                 requete = Expression.Lambda<Func<T, bool>>(Expression.Equal(fieldSearch, Expression.Constant(int.Parse(param))), parameter);
             }

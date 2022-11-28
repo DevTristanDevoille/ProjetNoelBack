@@ -1,9 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using ProjetNoelAPI.Contracts.Services;
+﻿using ProjetNoelAPI.Contracts.Services;
 using ProjetNoelAPI.Contracts.UnitOfWork;
 using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Services.Commons;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace ProjetNoelAPI.Services
 {
@@ -21,7 +19,7 @@ namespace ProjetNoelAPI.Services
 
             string id = GetParamToken.GetClaimInToken(token, "id");
 
-            User user = _uow.UserRepository.Get(int.Parse(id));
+            User user = await _uow.UserRepository.GetAsync(int.Parse(id));
 
             if (user == null)
                 return "";
@@ -40,14 +38,13 @@ namespace ProjetNoelAPI.Services
             Squad squad = new Squad() { Users = new List<User>() { user},Code = resultString };
 
             _uow.SquadRepository.Add(squad);
-            _uow.Commit();
+            await _uow.CommitAsync();
 
             return resultString;
         }
 
         public async Task<bool> FindSquad(string? code,string? token)
         {
-
             string id = GetParamToken.GetClaimInToken(token, "id");
 
             User user = _uow.UserRepository.Get(int.Parse(id));
@@ -57,14 +54,14 @@ namespace ProjetNoelAPI.Services
 
             List<User> userInSquad = _uow.UserRepository.GetUserInSquad(code);
             
-            Squad squad = _uow.SquadRepository.Get(RequestExpression<Squad>.CreateRequetWithOneParam("Code", code));
+            Squad squad = await _uow.SquadRepository.GetAsync(RequestExpression<Squad>.CreateRequetWithOneParam("Code", code));
 
             if (squad == null || userInSquad.Contains(user))
                 return false;
 
             squad.Users = new List<User> { user };
             _uow.SquadRepository.Update(squad);
-            _uow.Commit();
+            await _uow.CommitAsync();
 
             return true;
         }
