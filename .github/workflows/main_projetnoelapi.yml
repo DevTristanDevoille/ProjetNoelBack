@@ -14,7 +14,7 @@ jobs:
   
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: './ProjetNoelAPI/ProjetNoelAPI.sln'
+      SOLUTION: 'ProjetNoelAPI'
   
     runs-on: windows-latest
 
@@ -28,8 +28,8 @@ jobs:
 
       - name: Restore dependencies
         run: |
-              dir $SOLUTION
-              dotnet restore $SOLUTION
+              cd $SOLUTION
+              dotnet restore
       - name: Build
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
 
