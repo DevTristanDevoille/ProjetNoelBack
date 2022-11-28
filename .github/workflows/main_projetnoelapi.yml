@@ -33,7 +33,7 @@ jobs:
       - name: dotnet publish
         run: |
               dir
-              dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+              dotnet publish ProjetNoelAPI/ProjetNoelAPI.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
