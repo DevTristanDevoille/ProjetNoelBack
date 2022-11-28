@@ -114,7 +114,6 @@ builder.Services.AddDbContext<NoelDbContext>(options => options.UseSqlServer(con
 if (connexion == "")
 {
     connexion = builder.Configuration.GetConnectionString("sqlAzure");
-    connexion = Environment.GetEnvironmentVariable("");
     builder.Services.AddDbContext<NoelDbContext>(options => options.UseSqlServer(connexion));
 }
 
