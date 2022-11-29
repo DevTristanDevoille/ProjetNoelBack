@@ -19,6 +19,7 @@ namespace ProjetNoelAPI.DataAccess.DbContextNoel
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().HasMany(u => u.Squades);
+            modelBuilder.Entity<User>().HasMany(u => u.Listes).WithOne(l => l.User).HasForeignKey(l => l.IdCreator);
             modelBuilder.Entity<Squad>().HasMany(s => s.Listes).WithOne(l => l.Squad).HasForeignKey(l => l.IdSquad);
             modelBuilder.Entity<Liste>().HasMany(l => l.Ideas).WithOne(i => i.Liste).HasForeignKey(i => i.IdListe);
 
