@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjetNoelAPI.Contracts.Services;
+using ProjetNoelAPI.Models;
 
 namespace ProjetNoelAPI.Controllers
 {
@@ -40,11 +41,11 @@ namespace ProjetNoelAPI.Controllers
         #region CreateSquad
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateSquad()
+        public async Task<IActionResult> CreateSquad([FromBody] string name)
         {
             string? token = Request.Headers["Authorization"];
             token = token.Replace("Bearer ", "");
-            string result = await _squadServices.CreateSquad(token);
+            string result = await _squadServices.CreateSquad(token,name);
             if(result != "")
                 return Ok(result);
             else
@@ -52,6 +53,21 @@ namespace ProjetNoelAPI.Controllers
         }
         #endregion
 
+        #region GetAllSquad
+        [HttpGet]
+        [Authorize]
+        [Route("/Squad/GetAll")]
+        public async Task<IActionResult> GetAllSquad()
+        {
+            string? token = Request.Headers["Authorization"];
+            token = token.Replace("Bearer ", "");
+            List<Squad> result = await _squadServices.GetAllSquad(token);
+            if (result != null)
+                return Ok(result);
+            else
+                return BadRequest();
+        }
+        #endregion
 
         #endregion
     }

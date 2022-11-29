@@ -51,7 +51,7 @@ namespace ProjetNoelAPI.Controllers
         //[Authorize]
         public async Task<IActionResult> CreateUser([FromBody] UserDtoDown userDtoDown)
         {
-            User user = await _userServices.CreateUser(userDtoDown);
+            UserDtoDownToken user = await _userServices.CreateUser(userDtoDown);
 
             return user == null ? NotFound() : Ok(user);
         }

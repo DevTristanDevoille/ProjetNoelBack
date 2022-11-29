@@ -10,10 +10,14 @@ namespace ProjetNoelAPI.Models
         public string? Name { get; set; }
         public string? Description { get; set; }
         [JsonIgnore]
-        public int? IdCreator { get; set; }
+        public User? User { get; set; }
+        [Required]
+        public int IdCreator { get; set; }
+        [JsonIgnore]
+        public Squad? Squad { get; set; }
+        [Required]
+        public int IdSquad { get;set; }
         [JsonIgnore]
         public List<Idea>? Ideas { get; set; }
-        [JsonIgnore]
-        public List<User>? Users { get; set; }
     }
 }

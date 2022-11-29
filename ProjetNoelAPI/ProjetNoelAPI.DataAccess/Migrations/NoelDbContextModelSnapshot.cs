@@ -22,21 +22,6 @@ namespace ProjetNoelAPI.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ListeUser", b =>
-                {
-                    b.Property<int>("ListesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ListesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("ListeUser");
-                });
-
             modelBuilder.Entity("ProjetNoelAPI.Models.Idea", b =>
                 {
                     b.Property<int>("Id")
@@ -81,13 +66,25 @@ namespace ProjetNoelAPI.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("IdCreator")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IdSquad")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("IdSquad");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Listes");
                 });
@@ -101,6 +98,11 @@ namespace ProjetNoelAPI.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -151,21 +153,6 @@ namespace ProjetNoelAPI.DataAccess.Migrations
                     b.ToTable("SquadUser");
                 });
 
-            modelBuilder.Entity("ListeUser", b =>
-                {
-                    b.HasOne("ProjetNoelAPI.Models.Liste", null)
-                        .WithMany()
-                        .HasForeignKey("ListesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProjetNoelAPI.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ProjetNoelAPI.Models.Idea", b =>
                 {
                     b.HasOne("ProjetNoelAPI.Models.Liste", "Liste")
@@ -175,6 +162,23 @@ namespace ProjetNoelAPI.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Liste");
+                });
+
+            modelBuilder.Entity("ProjetNoelAPI.Models.Liste", b =>
+                {
+                    b.HasOne("ProjetNoelAPI.Models.Squad", "Squad")
+                        .WithMany("Listes")
+                        .HasForeignKey("IdSquad")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjetNoelAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Squad");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SquadUser", b =>
@@ -195,6 +199,11 @@ namespace ProjetNoelAPI.DataAccess.Migrations
             modelBuilder.Entity("ProjetNoelAPI.Models.Liste", b =>
                 {
                     b.Navigation("Ideas");
+                });
+
+            modelBuilder.Entity("ProjetNoelAPI.Models.Squad", b =>
+                {
+                    b.Navigation("Listes");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,32 +4,18 @@
 
 namespace ProjetNoelAPI.DataAccess.Migrations
 {
-    public partial class TestUOW : Migration
+    public partial class RefonteArchi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Listes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdCreator = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Listes", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Squades",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,50 +40,31 @@ namespace ProjetNoelAPI.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ideas",
+                name: "Listes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: true),
-                    UrlIdea = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsTake = table.Column<bool>(type: "bit", nullable: false),
-                    IdListe = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    IdCreator = table.Column<int>(type: "int", nullable: false),
+                    SquadId = table.Column<int>(type: "int", nullable: true),
+                    IdSquad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ideas", x => x.Id);
+                    table.PrimaryKey("PK_Listes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ideas_Listes_IdListe",
-                        column: x => x.IdListe,
-                        principalTable: "Listes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ListeUser",
-                columns: table => new
-                {
-                    ListesId = table.Column<int>(type: "int", nullable: false),
-                    UsersId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ListeUser", x => new { x.ListesId, x.UsersId });
+                        name: "FK_Listes_Squades_SquadId",
+                        column: x => x.SquadId,
+                        principalTable: "Squades",
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ListeUser_Listes_ListesId",
-                        column: x => x.ListesId,
-                        principalTable: "Listes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ListeUser_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_Listes_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -124,15 +91,43 @@ namespace ProjetNoelAPI.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Ideas_IdListe",
-                table: "Ideas",
-                column: "IdListe");
+            migrationBuilder.CreateTable(
+                name: "Ideas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: true),
+                    UrlIdea = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsTake = table.Column<bool>(type: "bit", nullable: false),
+                    ListeId = table.Column<int>(type: "int", nullable: true),
+                    IdListe = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ideas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ideas_Listes_ListeId",
+                        column: x => x.ListeId,
+                        principalTable: "Listes",
+                        principalColumn: "Id");
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ListeUser_UsersId",
-                table: "ListeUser",
-                column: "UsersId");
+                name: "IX_Ideas_ListeId",
+                table: "Ideas",
+                column: "ListeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Listes_SquadId",
+                table: "Listes",
+                column: "SquadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Listes_UserId",
+                table: "Listes",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SquadUser_UsersId",
@@ -144,9 +139,6 @@ namespace ProjetNoelAPI.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Ideas");
-
-            migrationBuilder.DropTable(
-                name: "ListeUser");
 
             migrationBuilder.DropTable(
                 name: "SquadUser");

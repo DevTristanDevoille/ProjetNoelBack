@@ -38,11 +38,11 @@ namespace ProjetNoelAPI.Controllers
         #region GetListe
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetListe()
+        public async Task<IActionResult> GetListe([FromQuery] int idSquad)
         {
             string? token = Request.Headers["Authorization"];
             token = token.Replace("Bearer ", "");
-            List<Liste> result = _listeService.GetListe(token);
+            List<Liste> result = _listeService.GetListe(token,idSquad);
 
             return Ok(result);
         }

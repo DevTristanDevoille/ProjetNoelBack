@@ -10,6 +10,11 @@ namespace ProjetNoelAPI.DataAccess.Repositories
         {
 
         }
+
+        public List<Squad> GetAllSquadsWithUser(User user)
+        {
+            return _dbContext.Squades.Where(s => s.Users.Contains(user)).ToList();
+        }
     }
 
 }

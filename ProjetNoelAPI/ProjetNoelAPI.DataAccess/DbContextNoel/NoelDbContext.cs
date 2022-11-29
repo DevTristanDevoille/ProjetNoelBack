@@ -18,8 +18,10 @@ namespace ProjetNoelAPI.DataAccess.DbContextNoel
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Idea>().HasOne(i => i.Liste).WithMany(l => l.Ideas).HasForeignKey(t => t.IdListe);
-            modelBuilder.Entity<User>().HasMany(u => u.Listes);
+            modelBuilder.Entity<User>().HasMany(u => u.Squades);
+            modelBuilder.Entity<Squad>().HasMany(s => s.Listes).WithOne(l => l.Squad).HasForeignKey(l => l.IdSquad);
+            modelBuilder.Entity<Liste>().HasMany(l => l.Ideas).WithOne(i => i.Liste).HasForeignKey(i => i.IdListe);
+
         }
     }
 }

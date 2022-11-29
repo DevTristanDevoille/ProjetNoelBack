@@ -43,7 +43,7 @@ namespace ProjetNoelAPI.Services
         }
 
 
-        public async Task<User> CreateUser(UserDtoDown userDtoDown)
+        public async Task<UserDtoDownToken> CreateUser(UserDtoDown userDtoDown)
         {
 
             byte[]? salt = GenerateSalt();
@@ -62,7 +62,10 @@ namespace ProjetNoelAPI.Services
             _uow.UserRepository.Add(user);
             _uow.Commit();
 
-            return user;
+            var token = _jwtService.GenerateJwtToken(user);
+            Expression<Func<User, bool>> requete = RequestExpression<User>.CreateRequetWithOneParam("UserName", userDtoDown.UserName);
+            User? userResult = await _uow.UserRepository.GetAsync(requete);
+            return new UserDtoDownToken() { User = userResult, Token = token };
         }
 
         private byte[] GenerateSalt()

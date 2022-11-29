@@ -13,8 +13,6 @@ namespace ProjetNoelAPI.Models
         [JsonIgnore]
         public string? Salt { get; set; }
         [JsonIgnore]
-        public List<Liste>? Listes { get; set; }
-        [JsonIgnore]
         public List<Squad>? Squades { get; set; }
 
     }

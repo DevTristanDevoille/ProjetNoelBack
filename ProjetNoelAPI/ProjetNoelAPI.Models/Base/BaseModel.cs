@@ -7,7 +7,6 @@ namespace ProjetNoelAPI.Models.Base
     public class BaseModel
     {
         [Key]
-        [JsonIgnore]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
     }

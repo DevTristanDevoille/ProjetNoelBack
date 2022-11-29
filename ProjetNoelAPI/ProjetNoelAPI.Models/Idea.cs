@@ -14,7 +14,6 @@ namespace ProjetNoelAPI.Models
         public bool? IsTake { get; set; }
         [JsonIgnore]
         public Liste? Liste { get; set; }
-        [JsonIgnore]
         public int IdListe { get; set; }
     }
 }

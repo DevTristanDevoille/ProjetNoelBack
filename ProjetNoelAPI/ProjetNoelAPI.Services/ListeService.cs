@@ -22,7 +22,6 @@ namespace ProjetNoelAPI.Services
             User user = await _uow.UserRepository.GetAsync(int.Parse(id));
 
             liste.IdCreator = user.Id;
-            liste?.Users?.Add(user);
 
             _uow.ListeRepository.Add(liste);
             await _uow.CommitAsync();
@@ -50,11 +49,12 @@ namespace ProjetNoelAPI.Services
 
         }
 
-        public List<Liste> GetListe(string? token)
+        public List<Liste> GetListe(string? token, int idSquad)
         {
             string id = GetParamToken.GetClaimInToken(token, "id");
-            List<Liste> listes = _uow.UserRepository.GetListesForUser(int.Parse(id));
-            return listes;
+            var requete = RequestExpression<Liste>.CreateRequetWithOneParam("IdSquad", idSquad.ToString()); ;
+            IEnumerable<Liste> listes = _uow.ListeRepository.GetAll(requete);
+            return listes.ToList();
 
         }
 

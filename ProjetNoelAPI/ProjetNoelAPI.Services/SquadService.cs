@@ -14,7 +14,7 @@ namespace ProjetNoelAPI.Services
             _uow = uow;
         }
 
-        public async Task<string>? CreateSquad(string token)
+        public async Task<string>? CreateSquad(string token,string name)
         {
 
             string id = GetParamToken.GetClaimInToken(token, "id");
@@ -35,7 +35,7 @@ namespace ProjetNoelAPI.Services
 
             var resultString = new string(Charsarr);
 
-            Squad squad = new Squad() { Users = new List<User>() { user},Code = resultString };
+            Squad squad = new Squad() { Users = new List<User>() { user},Code = resultString,Name = name };
 
             _uow.SquadRepository.Add(squad);
             await _uow.CommitAsync();
@@ -64,6 +64,13 @@ namespace ProjetNoelAPI.Services
             await _uow.CommitAsync();
 
             return true;
+        }
+
+        public async Task<List<Squad>> GetAllSquad(string token)
+        {
+            string id = GetParamToken.GetClaimInToken(token, "id");
+            User user = await _uow.UserRepository.GetAsync(int.Parse(id));
+            return _uow.SquadRepository.GetAllSquadsWithUser(user);
         }
     }
 }
