@@ -35,14 +35,24 @@ namespace ProjetNoelAPI.Controllers
         }
         #endregion
 
-        #region GetListe
+        #region GetListeByIdSquad
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetListe([FromQuery] int idSquad)
+        public async Task<IActionResult> GetListeByIdSquad([FromQuery] int idSquad)
         {
-            string? token = Request.Headers["Authorization"];
-            token = token.Replace("Bearer ", "");
-            List<Liste> result = _listeService.GetListe(token,idSquad);
+            List<Liste> result = _listeService.GetListe(idSquad);
+
+            return Ok(result);
+        }
+        #endregion
+
+        #region GetListeByIdListe
+        [HttpGet]
+        [Authorize]
+        [Route("GetById")]
+        public async Task<IActionResult> GetListe([FromQuery] int idListe)
+        {
+            Liste result = _listeService.GetListeWithIdListe(idListe);
 
             return Ok(result);
         }

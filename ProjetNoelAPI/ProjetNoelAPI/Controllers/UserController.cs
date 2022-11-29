@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetNoelAPI.Contracts.Services;
-using ProjetNoelAPI.Models;
 using ProjetNoelAPI.Models.DTO.Down;
 using ProjetNoelAPI.Models.DTO.Up;
 
@@ -25,7 +24,7 @@ namespace ProjetNoelAPI.Controllers
 
         #region Login
         [HttpPost]
-        [Route("/Connexion")]
+        [Route("Connexion")]
         public async Task<IActionResult> Login([FromBody] UserDtoUp userDtoUp)
         {
             // If the login or the password is null we return an error

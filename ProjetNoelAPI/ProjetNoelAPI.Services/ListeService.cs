@@ -49,13 +49,18 @@ namespace ProjetNoelAPI.Services
 
         }
 
-        public List<Liste> GetListe(string? token, int idSquad)
+        public List<Liste> GetListe(int idSquad)
         {
-            string id = GetParamToken.GetClaimInToken(token, "id");
             var requete = RequestExpression<Liste>.CreateRequetWithOneParam("IdSquad", idSquad.ToString()); ;
             IEnumerable<Liste> listes = _uow.ListeRepository.GetAll(requete);
             return listes.ToList();
 
+        }
+
+        public Liste GetListeWithIdListe(int idListe)
+        {
+            Liste liste = _uow.ListeRepository.Get(idListe);
+            return liste;
         }
 
         public async Task<bool> UpdateListe(Liste liste, string? token)
