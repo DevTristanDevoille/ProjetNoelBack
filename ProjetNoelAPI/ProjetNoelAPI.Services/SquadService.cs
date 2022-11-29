@@ -22,7 +22,7 @@ namespace ProjetNoelAPI.Services
             User user = await _uow.UserRepository.GetAsync(int.Parse(id));
 
             if (user == null)
-                return "";
+                return null;
 
             var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var Charsarr = new char[8];

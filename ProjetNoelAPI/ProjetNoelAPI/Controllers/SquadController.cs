@@ -45,8 +45,8 @@ namespace ProjetNoelAPI.Controllers
         {
             string? token = Request.Headers["Authorization"];
             token = token.Replace("Bearer ", "");
-            string result = await _squadServices.CreateSquad(token,name);
-            if(result != "")
+            Squad result = await _squadServices.CreateSquad(token,name);
+            if(result != null)
                 return Ok(result);
             else
                 return BadRequest();
