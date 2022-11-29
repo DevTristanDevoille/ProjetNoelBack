@@ -14,7 +14,7 @@ namespace ProjetNoelAPI.Services
             _uow = uow;
         }
 
-        public async Task<string>? CreateSquad(string token,string name)
+        public async Task<Squad>? CreateSquad(string token,string name)
         {
 
             string id = GetParamToken.GetClaimInToken(token, "id");
@@ -40,7 +40,7 @@ namespace ProjetNoelAPI.Services
             _uow.SquadRepository.Add(squad);
             await _uow.CommitAsync();
 
-            return resultString;
+            return squad;
         }
 
         public async Task<bool> FindSquad(string? code,string? token)
