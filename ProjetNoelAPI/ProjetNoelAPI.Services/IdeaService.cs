@@ -38,6 +38,14 @@ namespace ProjetNoelAPI.Services
 
         public async Task<List<Idea>> UpdateIdea(List<Idea> ideas)
         {
+            foreach (var item in ideas)
+            {
+                var result = _uow.IdeaRepository.Get(item.Id);
+                if(result.IsTake == true)
+                {
+                    item.IsTake = true;
+                }
+            }
             _uow.IdeaRepository.UpdateRange(ideas);
             await _uow.CommitAsync();
             return ideas;
