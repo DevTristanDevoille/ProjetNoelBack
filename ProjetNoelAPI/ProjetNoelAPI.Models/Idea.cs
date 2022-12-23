@@ -11,6 +11,7 @@ namespace ProjetNoelAPI.Models
         public float? Price { get; set; }
         public string? UrlIdea { get; set; }
         public int Position { get; set; }
+        public string? Commentaire { get; set; }
         [Required]
         public bool? IsTake { get; set; }
         [JsonIgnore]

@@ -9,7 +9,7 @@ namespace ProjetNoelAPI.DataAccess.DbContextNoel
         {
             var optionsBuilder = new DbContextOptionsBuilder<NoelDbContext>();
 
-            string connectionString = @"";
+            string connectionString = "";
 
             optionsBuilder.UseSqlServer(connectionString);
             return new NoelDbContext(optionsBuilder.Options);

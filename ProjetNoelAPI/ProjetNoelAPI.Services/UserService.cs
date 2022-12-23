@@ -49,6 +49,13 @@ namespace ProjetNoelAPI.Services
             byte[]? salt = GenerateSalt();
             string? hashedPassword = await HashPasswordWithSalt(userDtoDown.Password, salt);
 
+            var usernameResult = RequestExpression<User>.CreateRequetWithTwoParam("UserName", userDtoDown.UserName, "Email", userDtoDown.Email);
+
+            User verifyUser = await _uow.UserRepository.GetAsync(usernameResult);
+
+            if(verifyUser != null)
+                return null;
+
             User user = new User()
             {
                 UserName = userDtoDown.UserName,
