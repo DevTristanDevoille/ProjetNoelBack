@@ -19,7 +19,7 @@ namespace ProjetNoelAPI.Services
 
             string id = GetParamToken.GetClaimInToken(token, "id");
 
-            User user = await _uow.UserRepository.GetAsync(int.Parse(id));
+            User user = await _uow.UserRepository.GetAsync(x => x.Id == int.Parse(id));
 
             if (user == null)
                 return null;
@@ -47,14 +47,14 @@ namespace ProjetNoelAPI.Services
         {
             string id = GetParamToken.GetClaimInToken(token, "id");
 
-            User user = _uow.UserRepository.Get(int.Parse(id));
+            User user = _uow.UserRepository.Get(x => x.Id == int.Parse(id));
 
             if (user == null)
                 return false;
 
             List<User> userInSquad = _uow.UserRepository.GetUserInSquad(code);
             
-            Squad squad = await _uow.SquadRepository.GetAsync(RequestExpression<Squad>.CreateRequetWithOneParam("Code", code));
+            Squad squad = await _uow.SquadRepository.GetAsync(x => x.Code == code);
 
             if (squad == null || userInSquad.Contains(user))
                 return false;

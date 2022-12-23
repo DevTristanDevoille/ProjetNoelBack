@@ -8,5 +8,6 @@ namespace ProjetNoelAPI.Contracts.Services
         public Task<List<Idea>> CreateIdea(List<Idea> ideas);
         public Task<List<Idea>> UpdateIdea(List<Idea> ideas);
         public Task<Idea> DeleteIdea(int id);
+        public void SendMail(List<Idea> ideas);
     }
 }
